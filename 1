@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <string.h>
+void encrypt(char text[], int k) {
+    int i;
+    char ch;
+    for(i = 0; text[i] != '\0'; ++i) {
+        ch = text[i];
+        if(ch >= 'A' && ch <= 'Z') {
+            ch = (ch - 'A' + k) % 26 + 'A';
+            text[i] = ch;
+        }
+        else if(ch >= 'a' && ch <= 'z') {
+            ch = (ch - 'a' + k) % 26 + 'a';
+            text[i] = ch;
+        }
+    }
+}
+int main() {
+    char text[100];
+    int k;
+    printf("Enter a message to encrypt: ");
+    fgets(text, sizeof(text), stdin);
+    printf("Enter shift value (1-25): ");
+    scanf("%d", &k);
+    if (k < 1 || k > 25) {
+        printf("Invalid shift value. Please enter a number between 1 and 25.\n");
+        return 1;
+    }
+    encrypt(text, k);
+    printf("Encrypted message: %s", text);
+    return 0;
+}
